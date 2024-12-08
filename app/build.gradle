@@ -1,0 +1,59 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.google.services)
+}
+
+android {
+    signingConfigs {
+        release {
+            storeFile file('../habita-release-keystore.jks')
+            keyAlias 'habita_release'
+            storePassword 'TrackYour@Hab1ts!&NeverQuit'
+            keyPassword 'TrackYour@Hab1ts!&NeverQuit'
+        }
+    }
+    namespace 'seifemadhamdy.habita'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "seifemadhamdy.habita"
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.getByName("release")
+        }
+    }
+
+    buildFeatures { viewBinding = true }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_22
+        targetCompatibility JavaVersion.VERSION_22
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    implementation libs.androidx.core.splashscreen
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.auth
+    implementation libs.firebase.database
+    implementation libs.androidx.navigation.fragment
+    implementation libs.androidx.legacy.support.v4
+    implementation libs.androidx.lifecycle.livedata.ktx
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    coreLibraryDesugaring libs.desugar.jdk.libs
+}
